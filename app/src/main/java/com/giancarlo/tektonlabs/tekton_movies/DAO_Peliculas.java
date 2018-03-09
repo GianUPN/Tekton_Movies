@@ -20,9 +20,15 @@ import java.util.List;
  * Created by Giancarlo on 09/03/2018.
  */
 
+
+
 public class DAO_Peliculas {
 
-    public List<Peliculas> get_peliculas_populares(Context context, int pagina){
+    public interface Peliculas_Callback{
+        void onSuccess(List<Peliculas> lista_peliculas);
+    }
+
+    public void get_peliculas_populares(Context context, int pagina,final Peliculas_Callback callback){
         // COLA de Request
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = Codes.CABECERA + Codes.GET_PELICULAS + Codes.API_KEY+ "&page="+pagina;
@@ -36,18 +42,19 @@ public class DAO_Peliculas {
                         // PARSE a JSON
                         try {
                             JSONObject jsonObj = new JSONObject(response);
-                            JSONArray jsonArray = new JSONArray(jsonObj.getJSONArray("results"));
+                            JSONArray jsonArray = (JSONArray)jsonObj.get("results");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject item = jsonArray.getJSONObject(i);
                                 Peliculas pelicula = new Peliculas();
-                                pelicula.setId((String) item.get("id"));
+                                pelicula.setId(item.get("id")+"");
                                 pelicula.setNombre((String) item.get("title"));
                                 pelicula.setDetalle((String) item.get("overview"));
-                                pelicula.setCalificacion((double) item.get("vote_average"));
+                                pelicula.setCalificacion(Double.parseDouble(item.get("vote_average")+""));
                                 peliculasList.add(pelicula);
                             }
+                            callback.onSuccess(peliculasList);
                         }catch (Exception e){
-                            Log.i("Error",e.toString());
+                            e.printStackTrace();
                         }
 
                     }
@@ -59,6 +66,5 @@ public class DAO_Peliculas {
         });
         // Agregamos el request a la cola
         queue.add(stringRequest);
-        return peliculasList;
     }
 }
