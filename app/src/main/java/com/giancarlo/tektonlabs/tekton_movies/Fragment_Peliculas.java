@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 public class Fragment_Peliculas extends Fragment {
 
     private RecyclerView recyclerView;
@@ -25,9 +27,14 @@ public class Fragment_Peliculas extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_peliculas, container, false);
-        //recyclerView = (RecyclerView) view.findViewById(R.id.lista_peliculas);
-        //lManager = new LinearLayoutManager(getContext());
-        //recyclerView.setLayoutManager(lManager);
+        recyclerView = (RecyclerView) view.findViewById(R.id.lista_peliculas);
+        lManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(lManager);
+        Context context = getContext();
+        DAO_Peliculas dao_peliculas = new DAO_Peliculas();
+        adapter = new Adapter_Peliculas(dao_peliculas.get_peliculas_populares(getContext(),1));
+        recyclerView.setAdapter(adapter);
+
 
         return view;
     }
