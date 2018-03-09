@@ -31,9 +31,6 @@ public class Activity_Principal extends AppCompatActivity
         setContentView(R.layout.activity_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        Activity act;
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +88,6 @@ public class Activity_Principal extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // NAVEGACION LATERAL
         int id = item.getItemId();
-
         FragmentManager manager = getSupportFragmentManager();
         if(fragments.size()>0){
             if(manager.getBackStackEntryCount()>0) {
@@ -100,7 +96,6 @@ public class Activity_Principal extends AppCompatActivity
                 manager.beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.frame_contenido)).commit();
             }
         }
-
         if (id == R.id.nav_peliculas) {
 
             Fragment fragment = new Fragment_Peliculas();
@@ -120,9 +115,15 @@ public class Activity_Principal extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
             fragments.add(fragment);
-
         } else if (id == R.id.nav_series) {
-
+            Fragment fragment = new Fragment_Series();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.frame_contenido, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            fragments.add(fragment);
         } else if (id == R.id.nav_herramientas) {
 
         }

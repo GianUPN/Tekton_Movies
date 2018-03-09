@@ -31,7 +31,7 @@ public class DAO_Actores {
     public void get_actores_populares(Context context, int pagina, final Actores_Callback callback){
         // COLA de Request
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = Codes.CABECERA + Codes.GET_ACTORES + Codes.API_KEY+ "&lagunage=eu-ES&page="+pagina;
+        String url = Codes.CABECERA + Codes.GET_ACTORES + Codes.API_KEY+ "&language=eu-ES&page="+pagina;
         final List<Actores> actoresList = new ArrayList<>();
         // LISTENER
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,

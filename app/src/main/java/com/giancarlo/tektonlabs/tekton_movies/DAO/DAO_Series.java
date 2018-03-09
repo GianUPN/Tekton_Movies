@@ -10,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.giancarlo.tektonlabs.tekton_movies.Entities.Peliculas;
+import com.giancarlo.tektonlabs.tekton_movies.Entities.Series;
 import com.giancarlo.tektonlabs.tekton_movies.Utils.Codes;
 
 import org.json.JSONArray;
@@ -22,19 +23,16 @@ import java.util.List;
  * Created by Giancarlo on 09/03/2018.
  */
 
-
-
-public class DAO_Peliculas {
-
-    public interface Peliculas_Callback{
-        void onSuccess(List<Peliculas> lista_peliculas);
+public class DAO_Series{
+    public interface Series_Callback{
+        void onSuccess(List<Series> lista_series);
     }
 
-    public void get_peliculas_populares(Context context, int pagina,final Peliculas_Callback callback){
+    public void get_series_populares(Context context, int pagina, final Series_Callback callback){
         // COLA de Request
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = Codes.CABECERA + Codes.GET_PELICULAS + Codes.API_KEY+ "&page="+pagina;
-        final List<Peliculas> peliculasList = new ArrayList<>();
+        String url = Codes.CABECERA + Codes.GET_SERIES + Codes.API_KEY+ "&language=eu-ES&page="+pagina;
+        final List<Series> seriesList = new ArrayList<>();
         // LISTENER
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -47,15 +45,15 @@ public class DAO_Peliculas {
                             JSONArray jsonArray = (JSONArray)jsonObj.get("results");
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject item = jsonArray.getJSONObject(i);
-                                Peliculas pelicula = new Peliculas();
-                                pelicula.setId(item.get("id")+"");
-                                pelicula.setNombre((String) item.get("title"));
-                                pelicula.setDetalle((String) item.get("overview"));
-                                pelicula.setUrl_imagen((String) item.get("poster_path"));
-                                pelicula.setCalificacion(Double.parseDouble(item.get("vote_average")+""));
-                                peliculasList.add(pelicula);
+                                Series serie = new Series();
+                                serie.setId(item.get("id")+"");
+                                serie.setNombre(""+ item.get("name"));
+                                serie.setDetalle(""+ item.get("overview"));
+                                serie.setUrl_imagen(""+item.get("poster_path"));
+                                serie.setPopularidad(Double.parseDouble(item.get("vote_average")+""));
+                                seriesList.add(serie);
                             }
-                            callback.onSuccess(peliculasList);
+                            callback.onSuccess(seriesList);
                         }catch (Exception e){
                             e.printStackTrace();
                         }

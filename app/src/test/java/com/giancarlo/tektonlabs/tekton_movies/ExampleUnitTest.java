@@ -1,5 +1,11 @@
 package com.giancarlo.tektonlabs.tekton_movies;
 
+import android.app.Application;
+import android.content.Context;
+import android.test.AndroidTestCase;
+
+import com.giancarlo.tektonlabs.tekton_movies.DAO.DAO_Peliculas;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,9 +15,10 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class ExampleUnitTest{
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
 }
