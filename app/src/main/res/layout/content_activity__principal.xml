@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.giancarlo.tektonlabs.tekton_movies.Activity_Principal"
+    tools:context="com.giancarlo.tektonlabs.tekton_movies.View.Activity_Principal"
     tools:showIn="@layout/app_bar_activity__principal">
 
     <TextView

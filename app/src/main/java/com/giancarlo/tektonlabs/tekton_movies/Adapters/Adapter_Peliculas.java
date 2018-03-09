@@ -1,11 +1,16 @@
-package com.giancarlo.tektonlabs.tekton_movies;
+package com.giancarlo.tektonlabs.tekton_movies.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.giancarlo.tektonlabs.tekton_movies.Entities.Peliculas;
+import com.giancarlo.tektonlabs.tekton_movies.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -16,6 +21,7 @@ import java.util.List;
 public class Adapter_Peliculas extends RecyclerView.Adapter<Adapter_Peliculas.ListaViewHolder> {
 
     private List<Peliculas> items;
+    Context context;
     @Override
     public ListaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -26,11 +32,12 @@ public class Adapter_Peliculas extends RecyclerView.Adapter<Adapter_Peliculas.Li
 
     @Override
     public int getItemCount() {
-        return 0;
+        return items.size();
     }
-    public  Adapter_Peliculas(List<Peliculas> items){
+    public  Adapter_Peliculas(List<Peliculas> items, Context context){
         //CONTRUCTOR
         this.items = items;
+        this.context = context;
     }
 
     public class ListaViewHolder extends RecyclerView.ViewHolder {
@@ -57,6 +64,8 @@ public class Adapter_Peliculas extends RecyclerView.Adapter<Adapter_Peliculas.Li
         viewholder.nombre.setText(items.get(position).getNombre());
         viewholder.calificacion.setText(items.get(position).getCalificacion()+"");
         viewholder.detalle.setText(items.get(position).getDetalle());
+        Picasso.with(context).load("https://image.tmdb.org/t/p/w500/"+ items.get(position).getUrl_imagen()
+        ).into(viewholder.imagen);
     }
 
 }

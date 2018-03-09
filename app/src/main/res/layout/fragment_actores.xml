@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.giancarlo.tektonlabs.tekton_movies.View.Fragment_Peliculas">
+    tools:context="com.giancarlo.tektonlabs.tekton_movies.View.Fragment_Actores">
 
     <!-- TODO: Update blank fragment layout -->
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/lista_peliculas"
+        android:id="@+id/lista_actores"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
 </FrameLayout>

@@ -1,4 +1,4 @@
-package com.giancarlo.tektonlabs.tekton_movies;
+package com.giancarlo.tektonlabs.tekton_movies.View;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -15,11 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.giancarlo.tektonlabs.tekton_movies.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_Principal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    List<Fragment> fragments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +91,15 @@ public class Activity_Principal extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // NAVEGACION LATERAL
         int id = item.getItemId();
-        List<Fragment> fragments = new ArrayList<>();
-        FragmentManager manager = getSupportFragmentManager();
 
+        FragmentManager manager = getSupportFragmentManager();
+        if(fragments.size()>0){
+            if(manager.getBackStackEntryCount()>0) {
+                for (int i = 0; i < manager.getBackStackEntryCount(); i++)
+                    manager.popBackStack();
+                manager.beginTransaction().remove(getSupportFragmentManager().findFragmentById(R.id.frame_contenido)).commit();
+            }
+        }
 
         if (id == R.id.nav_peliculas) {
 
@@ -102,6 +112,14 @@ public class Activity_Principal extends AppCompatActivity
                     .commit();
             fragments.add(fragment);
         } else if (id == R.id.nav_actores) {
+            Fragment fragment = new Fragment_Actores();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.frame_contenido, fragment)
+                    .addToBackStack(null)
+                    .commit();
+            fragments.add(fragment);
 
         } else if (id == R.id.nav_series) {
 

@@ -1,10 +1,10 @@
-package com.giancarlo.tektonlabs.tekton_movies;
+package com.giancarlo.tektonlabs.tekton_movies.Entities;
 
 /**
- * Created by Giancarlo on 08/03/2018.
+ * Created by Giancarlo on 09/03/2018.
  */
 
-public class Peliculas {
+public class Actores {
 
     private String id;
     private String nombre;

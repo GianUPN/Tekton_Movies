@@ -1,4 +1,4 @@
-package com.giancarlo.tektonlabs.tekton_movies;
+package com.giancarlo.tektonlabs.tekton_movies.DAO;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.giancarlo.tektonlabs.tekton_movies.Entities.Peliculas;
+import com.giancarlo.tektonlabs.tekton_movies.Utils.Codes;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,7 +33,7 @@ public class DAO_Peliculas {
     public void get_peliculas_populares(Context context, int pagina,final Peliculas_Callback callback){
         // COLA de Request
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = Codes.CABECERA + Codes.GET_PELICULAS + Codes.API_KEY+ "&page="+pagina;
+        String url = Codes.CABECERA + Codes.GET_PELICULAS + Codes.API_KEY+ "&lagunage=eu-ES&page="+pagina;
         final List<Peliculas> peliculasList = new ArrayList<>();
         // LISTENER
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -49,6 +51,7 @@ public class DAO_Peliculas {
                                 pelicula.setId(item.get("id")+"");
                                 pelicula.setNombre((String) item.get("title"));
                                 pelicula.setDetalle((String) item.get("overview"));
+                                pelicula.setUrl_imagen((String) item.get("poster_path"));
                                 pelicula.setCalificacion(Double.parseDouble(item.get("vote_average")+""));
                                 peliculasList.add(pelicula);
                             }
