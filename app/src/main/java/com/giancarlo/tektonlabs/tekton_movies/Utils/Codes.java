@@ -12,5 +12,5 @@ public class Codes {
     final public static String GET_PELICULAS = "/movie/popular";
     final public static String GET_ACTORES = "/person/popular";
     final public static String GET_SERIES = "/tv/popular";
-
+    final public static String FIND_PELICULAS = "/search/movie";
 }
